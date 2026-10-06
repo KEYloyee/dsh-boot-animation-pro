@@ -1,0 +1,57 @@
+{
+  "name": "dsh-boot-animation",
+  "version": "0.3.0",
+  "description": "鲸鱼娘启动加载动画：点击进入（Esc/空格放行）、多片随机、启动进度可见、失败有兜底。不改 DSH 本体源码。本 fork 增加了「开机风暴期延后起播」，见 README。",
+  "license": "MIT",
+  "author": "lxj5820",
+  "contributors": [
+    {
+      "name": "KEYloyee"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KEYloyee/dsh-boot-animation-pro.git"
+  },
+  "homepage": "https://github.com/KEYloyee/dsh-boot-animation-pro#readme",
+  "bugs": {
+    "url": "https://github.com/KEYloyee/dsh-boot-animation-pro/issues"
+  },
+  "type": "module",
+  "main": "entry.js",
+  "exports": {
+    ".": "./entry.js",
+    "./client": {
+      "default": "./lib/client.js"
+    },
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "assets",
+    "lib",
+    "src",
+    "tools",
+    "cordis.patch.yml",
+    "entry.js",
+    "package.json",
+    "MANUAL.md",
+    "INSTALL.md",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": "^22.19.0 || >=24.0.0"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/schemastery": "*"
+  },
+  "dsh": {
+    "client": {
+      "platform": "web"
+    },
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

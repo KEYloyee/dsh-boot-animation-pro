@@ -1,0 +1,14 @@
+# dsh-boot-animation bundle layer: mounted by `dsh plugin add`, so a profile
+# gets this row without manual cordis.patch.yml edits. A profile-level patch
+# can still disable the row by id.
+#
+# There is one exit: the whole screen fades out over a second. Split and glitch
+# exits were built and then dropped by request; the sampler in tools/ still has
+# them if they are ever wanted again.
+#
+# The other knobs live in the Host half rather than here:
+#   holdMs   how long to wait before releasing a boot that never settles
+
+- insert:
+    - id: boot-animation
+      name: dsh-boot-animation

@@ -1,0 +1,39 @@
+name: checks
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      # The Host half imports @deepseek-ai/schemastery statically, and the
+      # degradation suite copies cosmokit beside it. Both belong to the deployment
+      # rather than to this package, which is why they are peers and why they are
+      # installed here and nowhere else.
+      - name: install the peer schema library
+        run: npm install --no-save --no-package-lock @deepseek-ai/schemastery@3.18.4 @deepseek-ai/cosmokit
+
+      - name: syntax check every script
+        run: |
+          node --check entry.js
+          node --check src/boot-screen.js
+          node --check src/client.js
+          node --check lib/client.js
+          node --check build-client.mjs
+
+      - name: host half — Config, injection, manifest route
+        run: node verify/verify-entry.mjs
+
+      - name: host half — the old-schema-library degradation path
+        run: node verify/verify-degraded.mjs
+
+      - name: pre-boot screen — the interaction switches and the boot-storm hold
+        run: node verify/verify-options.mjs
